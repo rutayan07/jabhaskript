@@ -11,23 +11,11 @@ function getFuelLevel(stage) {
         }, 2000);
     });
 }
-
-// Synchronous log
-console.log("Calling getFuelLevel()...");
-
-getFuelLevel("before trip")
-.then((fuelBefore) => {
-    console.log("Fuel BEFORE trip:", fuelBefore, "liters");
-
-    console.log("Starting trip...");
-
-    return getFuelLevel("after trip");
-})
-.then((fuelAfter) => {
-    console.log("Fuel AFTER trip:", fuelAfter, "liters");
-
-    let consumed = 60 - fuelAfter;
-    console.log("Fuel consumed during trip:", consumed, "liters");
+getFuelLevel("before trip").then((beforeTripFuel) => {
+    console.log(`Fuel level before trip: ${beforeTripFuel} liters`);
+    getFuelLevel("after trip").then((afterTripFuel) => {
+        console.log(`Fuel level after trip: ${afterTripFuel} liters`);
+        let fuelConsumed = beforeTripFuel - afterTripFuel;
+        console.log(`Total fuel consumed during trip: ${fuelConsumed} liters`);
+    });
 });
-
-console.log("END OF PROGRAM (Synchronous code)");
